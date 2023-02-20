@@ -24,3 +24,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         Retrieve recipes for auth user
         """
         return self.queryset.filter(user=self.request.user).order_by('-id')
+
+    def get_serializer_class(self):
+        """
+        Return the serializer class for request
+
+        Returns:
+            Serializer: Return list or detail serializer
+        """
+        if self.action == 'list':
+            return serializers.RecipeSerializer
+
+        return self.serializer_class
